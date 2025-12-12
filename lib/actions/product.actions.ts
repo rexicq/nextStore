@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+'use server';
+
 import { convertToPlainObject } from '../utils';
 import { LATEST_PRODUCTS_LIMIT } from '../constants';
 import { prisma } from '@/db/prisma';
@@ -7,11 +8,12 @@ import { prisma } from '@/db/prisma';
  * Возвращает список последних продуктов через Prisma
  */
 export async function getLatestProducts() {
+  
   const data = await prisma.product.findMany({
     take: LATEST_PRODUCTS_LIMIT,
     orderBy: { createdAt: 'desc' },
   });
-
+console.log(data)
   return convertToPlainObject(data);
 }
 
